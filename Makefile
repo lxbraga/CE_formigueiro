@@ -1,7 +1,7 @@
 all: main
 
 CXX = clang++
-override CXXFLAGS += -g -Wno-everything
+override CXXFLAGS += -O3 -g -Wno-everything -Wall -pthread
 
 SRCS = $(shell find . -name '.ccls-cache' -type d -prune -o -type f -name '*.cpp' -print)
 OBJS = $(SRCS:.cpp=.o)
