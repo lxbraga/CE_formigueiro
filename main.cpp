@@ -176,10 +176,10 @@ class Mapa{
 public:
     int x, y; // Implementa um limite para o mapa
     int intensidade_fero;
-    int mapa_f[100][100] {0}; // Formigas - Mapa limitado para 100x100
-    int mapa_fero[100][100] {0}; // Feromônio - Mapa limitado para 100x100
-    int mapa_food[100][100] {0}; // Comida - Mapa limitado para 100x100
-    int mapa_home[100][100] {0}; // Formigueiro - Mapa limitado para 100x100
+    int mapa_f[100][100] {{0}}; // Formigas - Mapa limitado para 100x100
+    int mapa_fero[100][100] {{0}}; // Feromônio - Mapa limitado para 100x100
+    int mapa_food[100][100] {{0}}; // Comida - Mapa limitado para 100x100
+    int mapa_home[100][100] {{0}}; // Formigueiro - Mapa limitado para 100x100
     vector <Formiga> n_ants; // Vetor das formigas presentes no mapa
     vector <Formigueiro> n_homes; // Vetor das Formigueiros presentes no mapa
     vector <Feromonio> n_feros; // Vetor das formigas presentes no mapa
@@ -281,70 +281,88 @@ void formiga_andar(Mapa& mapa, int iterador, int look_distance){
 
 
 int main() {
-	srand (time(nullptr));
-	cout << "programa começou" << "\n";
-	int x = 25; //altura
+  	srand (time(nullptr));
+  	cout << "programa começou" << "\n";
+	int x = 30; //altura
 	int y = 60; //largura
-	int look_distance = 8;
+	int look_distance = 4;
 	int intensidade_feromonio = 20;
 	Mapa mapa{x, y, intensidade_feromonio};
-	mapa.inserir_comida(13,30);
+	mapa.inserir_comida(22,10);
+	mapa.inserir_comida(24,51);
+	mapa.inserir_comida(4,58);
 	Formigueiro home1{1, 3, 4};
 	//Formigueiro home2{2, 20, 55};
 	Formiga ant1{1,5,6, x, y};
 	Formiga ant2{1,5,5, x, y};
 	Formiga ant3{1,5,4, x, y};
-	// Formiga ant4{2,22,55, x, y};
-	// Formiga ant5{2,22,54, x, y};
-	// Formiga ant6{2,22,53, x, y};
+	Formiga ant4{1,5,5, x, y};
+	Formiga ant5{1,5,5, x, y};
+	Formiga ant6{1,5,5, x, y};
+	Formiga ant7{1,5,6, x, y};
+	Formiga ant8{1,5,5, x, y};
+	Formiga ant9{1,5,4, x, y};
+	Formiga ant10{1,5,5, x, y};
+	Formiga ant11{1,5,5, x, y};
+	Formiga ant12{1,5,5, x, y};
 	mapa.inserir_ant(ant1);
 	mapa.inserir_ant(ant2);
 	mapa.inserir_ant(ant3);
+	mapa.inserir_ant(ant4);
+	mapa.inserir_ant(ant5);
+	mapa.inserir_ant(ant6);
+	mapa.inserir_ant(ant7);
+	mapa.inserir_ant(ant8);
+	mapa.inserir_ant(ant9);
+	mapa.inserir_ant(ant10);
+	mapa.inserir_ant(ant11);
+	mapa.inserir_ant(ant12);
 	mapa.inserir_formigueiro(home1);
 	// mapa.inserir_ant(ant4);
-	// mapa.inserir_ant(ant5);
-	// mapa.inserir_ant(ant6);
-	// mapa.inserir_formigueiro(home2);
-	//cout << mapa.mapa_home[3][4] << "\n";  
-	mapa.popular();
-	//mapa.mapa_food[13][30] = 10;
-	mapa.plot();  
-	//mapa.plot();
-	cout << "\n";
-	int a;
-	vector<int> movimento(5);
-	for(int k = 0; k < 2000; k++){
-	    system("clear");
-    mapa.adicionar_feromonio();
-    mapa.remover_feromonio();
-    mapa.popular();
-    //mapa.popular_feromonio();
-	vector<thread> arr;
-    for(int l = 0; l < mapa.n_ants.size(); l++){
+  	// mapa.inserir_ant(ant5);
+  	// mapa.inserir_ant(ant6);
+  	// mapa.inserir_formigueiro(home2);
+  	//cout << mapa.mapa_home[3][4] << "\n";
+  	mapa.popular();
+  	//mapa.mapa_food[13][30] = 10;
+  	mapa.plot();
+  	//mapa.plot();
+  	cout << "\n";
+  	vector<int> movimento(5);
+  	for(int k = 0; k < 2000; k++){
+    	if(system("clear") == -1){
+			return -1;
+		};
+    	mapa.adicionar_feromonio();
+   		mapa.remover_feromonio();
+    	mapa.popular();
+    	//mapa.popular_feromonio();
+		vector<thread> arr;
+    	for(int l = 0; l < mapa.n_ants.size(); l++){
       	//chamar thread:::
-      	mapa::n_ants;
       	//arr.emplace_back(mapa.n_ants[l].andar(mapa.mapa_fero, mapa.mapa_food, look_distance, mapa.n_homes, mapa.n_feros));
-	  	arr.push_back(&mapa::n_ants[l].andar, mapa.mapa_fero, mapa.mapa_food, look_distance, mapa.n_homes, mapa.n_feros);
+		//arr.push_back(&mapa::n_ants[l].andar, mapa.mapa_fero, mapa.mapa_food, look_distance, mapa.n_homes, mapa.n_feros);
 		// mapa.n_ants[l].andar(mapa.mapa_fero, mapa.mapa_food, look_distance, mapa.n_homes, mapa.n_feros);
 		//arr.emplace_back(&mapa::n_ants);
       	//movimento = andar(mapa.n_ants[l],mapa.mapa_fero, mapa.mapa_food, look_distance, mapa.n_homes, mapa.n_feros);
       	//arr.emplace_back(formiga_andar,mapa,l,look_distance);
+      	formiga_andar(mapa,l,look_distance);
       	//mapa.n_ants[l].assimilar(movimento);
-      	cout << "Tamanho do vetor feromônio: " << mapa.n_feros.size() << "\n";
-		for(auto &thread : arr){
-			thread.join();
-		}
+      	//cout << "Tamanho do vetor feromônio: " << mapa.n_feros.size() << "\n";
+      	if(mapa.n_feros.size() > 10)
+      	cout << "Intensidade de um feromônio: " << mapa.n_feros[3].intensidade << "\n";
     }// THREAD VAI AQUI
 
-    for(int n = 0; n < mapa.n_feros.size(); n++)
+    for(int n = 0; n < mapa.n_feros.size(); n++){
       	mapa.n_feros[n].decrementaIntensidade();
-      	//A cada tick ele diminui um da intensidade de cada feromônio
-    	cout << "\n" << "Quantidade de comida: "<< mapa.mapa_food[13][30] << "\n";
-    	mapa.plot();
-    	cout << "\n" << "Localizacao de x: " << mapa.n_ants[0].x << "\n";
-    	cout << "\n" << "Localizacao de y: " << mapa.n_ants[0].y << "\n";
-    	usleep(50000);
 	}
+    //A cada tick ele diminui um da intensidade de cada feromônio
+	cout << "\n" << "Quantidade de comida: "<< mapa.mapa_food[13][30] << "\n";
+    mapa.plot();
+    cout << "\n" << "Localizacao de x: " << mapa.n_ants[0].x << "\n";
+    cout << "\n" << "Localizacao de y: " << mapa.n_ants[0].y << "\n";
+    usleep(50000);
+}
   
-  	cout << "\n" << "programa terminou" << "\n";
+  cout << "\n" << "programa terminou" << "\n";
 }
